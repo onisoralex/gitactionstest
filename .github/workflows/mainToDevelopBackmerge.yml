@@ -1,0 +1,35 @@
+name: Auto Merge Main to Develop
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout main branch
+      uses: actions/checkout@v4
+      with:
+        ref: main
+
+    - name: Checkout develop branch
+      uses: actions/checkout@v4
+      with:
+        ref: develop
+
+    - name: Merge main -> develop
+      uses: devmasx/merge-branch@master
+      with:
+        type: now
+        from_branch: main
+        target_branch: develop
+        message: Merge staging into develop
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: develop
