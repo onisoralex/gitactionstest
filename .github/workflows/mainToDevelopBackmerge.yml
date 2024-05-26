@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout main branch
-      uses: actions/checkout@master
+      uses: actions/checkout@v4
       with:
         ref: main
 
     - name: Checkout develop branch
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         ref: develop
 
@@ -26,6 +26,7 @@ jobs:
         type: now
         from_branch: main
         target_branch: develop
+        message: Merge staging into develop
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push changes
