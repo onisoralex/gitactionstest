@@ -1,9 +1,11 @@
 name: Main to Develop Backmerge
 
 on:
-  push: # only execute on a push event, specifically for the main branch
-    branches:
-      - main
+  # Deactivated automated back-merging, because merging develop into main creates a new commit triggering the backmerge, which is unnecessary, if it was merged just now.
+  #push: # only execute on a push event, specifically for the main branch
+    #branches:
+      #- main
+  workflow_dispatch:
 
 jobs:
   merge-main-back-to-develop: # name of the job
@@ -25,5 +27,5 @@ jobs:
           git fetch --unshallow
           git checkout develop
           git pull
-          git merge --no-ff main -m "Auto-merge master back to dev"
+          git merge main
           git push
